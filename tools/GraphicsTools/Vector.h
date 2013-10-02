@@ -14,6 +14,7 @@ public:
 	Vector3 operator/(float s);
 	Vector3 operator+(Vector3 &v);
 	Vector3 operator-(Vector3 &v);
+	float&  operator[](const int index);
 
 	Vector3 cross(Vector3* v);
 	float   dot(Vector3* v);

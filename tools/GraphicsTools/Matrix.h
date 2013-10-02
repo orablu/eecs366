@@ -2,6 +2,7 @@
  * Case Western Reserve University - EECS 366 */
 
 #pragma once
+
 class Matrix {
 private:
 	float** matrix;
@@ -22,6 +23,8 @@ public:
 	Matrix* operator*(Matrix* m);
 	Matrix* operator*(float s);
 	Matrix* operator/(float s);
+	float*  operator[](const int index);
+
 	Matrix* transpose();
 
 	void    print(char* name);

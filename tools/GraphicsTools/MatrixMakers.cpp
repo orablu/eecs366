@@ -1,8 +1,16 @@
+/* Wes Rupert - wesrupert@outlook.com (wkr3)  *
+ * Case Western Reserve University - EECS 366 */
+
 #include "stdafx.h"
 #include "MatrixMakers.h"
 #include "Matrix.h"
 #include "Vector.h"
 #include <math.h>
+
+#define X 0
+#define Y 1
+#define Z 2
+#define H 3
 
 Matrix* modelMatrix(Matrix* r, Vector3* p) {
 	Matrix* temp = new Matrix(r->rows + 1, r->cols + 1);
@@ -66,12 +74,45 @@ Matrix* translateMatrix(float x, float y, float z) {
 	return new Matrix(3, 1, matrix);
 }
 
-Matrix* perspectiveMatrix() {
-	// TODO: Implement.
-	return NULL;
+Matrix* perspectiveMatrix(Vector3 prp, Vector3 vp, float s, float t, float d) {
+	float matrix[] = {
+		prp[Z] - vp[Z], 0, 0, 0,
+		0, prp[Z] - vp[Z], 0, 0,
+		-prp[X], -prp[Y], s, -1 / d,
+		prp[X] * prp[Z], prp[X] * prp[Z], t, prp[Z] / d
+	};
+	
+	return new Matrix(4, 4, matrix);
 }
 
-Matrix* viewportMatrix() {
-	// TODO: Implement.
-	return NULL;
+Matrix* viewportMatrix(float d, float xMin, float xMax, float yMin, float yMax, float n, float f) {
+	float per_1a[] = {
+		2 * d / (xMax - xMin), 0, 0, 0,
+		0, 2 * d / (yMax - yMin), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	};
+
+	float per_1b[] = {
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		(xMax + xMin) / (2 * d), (yMax + yMin) / (2 * d), 1, 0,
+		0, 0, 0, 1
+	};
+
+	float per_2[] = {
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, -(f + n) / (f - n), -1,
+		0, 0, -2 * f * n / (f - n), 0
+	};
+
+	Matrix* t1 = new Matrix(4, 4, per_1a);
+	Matrix* t2 = new Matrix(4, 4, per_1b);
+	Matrix* t3 = new Matrix(4, 4, per_2);
+	Matrix* t4 = *t2 * t3;
+	Matrix* t5 = *t1 * t4;
+	delete t1, t2, t3, t4;
+
+	return t5;
 }

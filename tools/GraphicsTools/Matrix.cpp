@@ -127,6 +127,10 @@ Matrix* Matrix::operator/(float s) {
 	return temp;
 }
 
+float* Matrix::operator[](const int index) {
+	return this->matrix[index];
+}
+
 Matrix* Matrix::transpose() {
 	Matrix* temp = new Matrix(this->rows, this->cols);
 	for (int i = 0; i < temp->rows; ++i) {

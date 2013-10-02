@@ -51,6 +51,10 @@ Vector3 Vector3::operator-(Vector3 &v) {
 		this->vector[2] - v.vector[2]);
 }
 
+float&  Vector3::operator[](const int index) {
+	return this->vector[index];
+}
+
 Vector3 Vector3::cross(Vector3* v) {
 	return Vector3(
 		this->vector[1]*v->vector[2]-this->vector[2]*v->vector[1],
