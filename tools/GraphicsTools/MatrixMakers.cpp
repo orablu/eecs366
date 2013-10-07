@@ -85,7 +85,7 @@ Matrix* perspectiveMatrix(Vector3 prp, Vector3 vp, float s, float t, float d) {
 	return new Matrix(4, 4, matrix);
 }
 
-Matrix* viewportMatrix(float d, float xMin, float xMax, float yMin, float yMax, float n, float f) {
+Matrix* perspectiveMatrix(float d, float xMin, float xMax, float yMin, float yMax, float n, float f) {
 	float per_1a[] = {
 		2 * d / (xMax - xMin), 0, 0, 0,
 		0, 2 * d / (yMax - yMin), 0, 0,
@@ -115,4 +115,15 @@ Matrix* viewportMatrix(float d, float xMin, float xMax, float yMin, float yMax, 
 	delete t1, t2, t3, t4;
 
 	return t5;
+}
+
+Matrix* viewportMatrix(float xvMin, float xvMax, float yvMin, float yvMax) {
+	float matrix[] = {
+		(xvMax - xvMin) / 2, 0, 0, 0,
+		0, (yvMax - yvMin) / 2, 0, 0,
+		0, 0, 0.5, 0,
+		(xvMax + xvMin) / 2, (yvMax + yvMin) / 2, 0.5, 1
+	};
+
+	return new Matrix(4, 4, matrix);
 }

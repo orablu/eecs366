@@ -6,4 +6,5 @@ Matrix* viewMatrix(Vector3* P, Vector3* N, Vector3* V);
 Matrix* rotateMatrix(float thetaDeg, char axis);
 Matrix* translateMatrix(float x, float y, float z);
 Matrix* perspectiveMatrix(Vector3 prp, Vector3 vp, float s, float t, float d);
-Matrix* viewportMatrix(float d, float xMin, float xMax, float yMin, float yMax, float n, float f);
+Matrix* perspectiveMatrix(float d, float xMin, float xMax, float yMin, float yMax, float n, float f);
+Matrix* viewportMatrix(float xvMin, float xvMax, float yvMin, float yvMax);
